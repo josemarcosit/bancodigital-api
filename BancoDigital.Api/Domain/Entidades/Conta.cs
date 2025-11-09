@@ -1,18 +1,18 @@
-﻿using BancoDigital.Api.Domain.Abstractions;
-using BancoDigital.Api.Domain.Events;
+﻿using BancoDigital.Api.Domain.Abstracoes;
+using BancoDigital.Api.Domain.Eventos;
 
-namespace BancoDigital.Api.Domain.Entities
+namespace BancoDigital.Api.Domain.Entidades
 {
-    public class Conta : IHasDomainEvents
+    public class Conta : ITemEventoDomain
     {
-        private readonly List<DomainEvent> _domainEvents = new();
-        public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+        private readonly List<EventoDomain> _eventosDomain = new();
+        public IReadOnlyCollection<EventoDomain> EventosDomain => _eventosDomain.AsReadOnly();
 
         public Guid Id { get; private set; }
         public decimal Saldo { get; private set; }
         public Conta()
         {
-            
+
         }
         public Conta(Guid id, decimal saldoInicial = 0m)
         {
@@ -23,28 +23,28 @@ namespace BancoDigital.Api.Domain.Entities
         public void Creditar(decimal valor)
         {
             if (valor <= 0) throw new ArgumentException("Valor deve ser positivo", nameof(valor));
-            Saldo += valor;            
+            Saldo += valor;
         }
 
         public void Debitar(decimal valor)
         {
             if (valor <= 0) throw new ArgumentException("Valor deve ser positivo", nameof(valor));
             if (Saldo < valor) throw new InvalidOperationException("Saldo insuficiente");
-            Saldo -= valor;            
+            Saldo -= valor;
         }
 
         public void TransferirPara(Conta contaDestino, decimal valor)
         {
             Debitar(valor);
             contaDestino.Creditar(valor);
-            
-            _domainEvents.Add(new TransferenciaRealizadaDomainEvent(
+
+            _eventosDomain.Add(new TransferenciaRealizadaDomainEvent(
                 ContaOrigemId: this.Id,
                 ContaDestinoId: contaDestino.Id,
                 Valor: valor
             ));
         }
 
-        public void ClearDomainEvents() => _domainEvents.Clear();
+        public void LimparEventosDomain() => _eventosDomain.Clear();
     }
 }

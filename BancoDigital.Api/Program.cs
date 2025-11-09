@@ -1,5 +1,5 @@
 using BancoDigital.Api.Application.UseCases;
-using BancoDigital.Api.Domain.Entities;
+using BancoDigital.Api.Domain.Entidades;
 using BancoDigital.Api.DTOs;
 using BancoDigital.Api.Infrastructure;
 using BancoDigital.Api.Infrastructure.Interceptors;

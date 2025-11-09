@@ -1,5 +1,5 @@
-﻿using BancoDigital.Api.Domain.Abstractions;
-using BancoDigital.Api.Domain.Entities;
+﻿using BancoDigital.Api.Domain.Abstracoes;
+using BancoDigital.Api.Domain.Entidades;
 using BancoDigital.Api.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,14 +17,14 @@ namespace BancoDigital.Api.Infrastructure
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=banco_digital.db")
-                          .EnableSensitiveDataLogging(); 
+                          .EnableSensitiveDataLogging();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Ignore<DomainEvent>();
+            modelBuilder.Ignore<EventoDomain>();
 
             modelBuilder.Entity<Conta>(b =>
             {

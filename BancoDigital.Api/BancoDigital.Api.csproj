@@ -24,13 +24,6 @@
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <!-- Exclude test files placed under BancoDigital.Tests folder inside the API project directory -->
-  <ItemGroup>
-    <Compile Remove="BancoDigital.Tests\**\*.cs" />
-    <None Remove="BancoDigital.Tests\**\*.*" />
-    <Content Remove="BancoDigital.Tests\**\*.*" />
-  </ItemGroup>
+  </ItemGroup> 
 
 </Project>

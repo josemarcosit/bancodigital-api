@@ -1,9 +1,9 @@
-﻿using BancoDigital.Api.Domain.Abstractions;
+﻿using BancoDigital.Api.Domain.Abstracoes;
 
 namespace BancoDigital.Api.Application.Interfaces
 {
     public interface IEventPublisher
     {
-        Task PublicarAsync(DomainEvent evento, CancellationToken cancellationToken = default);
+        Task PublicarAsync(EventoDomain evento, CancellationToken cancellationToken = default);
     }
 }

@@ -1,4 +1,4 @@
-﻿using BancoDigital.Api.Domain.Entities;
+﻿using BancoDigital.Api.Domain.Entidades;
 using BancoDigital.Api.Infrastructure;
 
 namespace BancoDigital.Api.Application.UseCases
@@ -17,11 +17,11 @@ namespace BancoDigital.Api.Application.UseCases
             ArgumentNullException.ThrowIfNull(conta);
 
             var result = await _dbContext.Contas.FindAsync(conta.Id);
-            if(result != null)
+            if (result != null)
                 throw new InvalidOperationException($"Conta {result.Id} já existe");
 
             await _dbContext.Contas.AddAsync(conta);
-          
+
             await _dbContext.SaveChangesAsync();
         }
     }

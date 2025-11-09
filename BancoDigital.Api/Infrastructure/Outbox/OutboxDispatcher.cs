@@ -1,5 +1,5 @@
-﻿using BancoDigital.Api.Domain.Abstractions;
-using BancoDigital.Api.Domain.Events;
+﻿using BancoDigital.Api.Domain.Abstracoes;
+using BancoDigital.Api.Domain.Eventos;
 using BancoDigital.Api.Infrastructure.Serializers;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,11 +36,11 @@ namespace BancoDigital.Api.Infrastructure.Outbox
                 {
                     try
                     {
-                        var evt = SystemTextJsonEventSerializer.Deserialize(msg.Payload, msg.Type) as DomainEvent;
+                        var evt = SystemTextJsonEventSerializer.Deserialize(msg.Payload, msg.Type) as EventoDomain;
                         if (evt != null)
                         {
                             //TODO: IEventPublisher
-                            await SimulatedPublish(evt);  
+                            await SimulatedPublish(evt);
 
                             // Marca como processado
                             msg.ProcessedOnUtc = DateTime.UtcNow;
@@ -62,7 +62,7 @@ namespace BancoDigital.Api.Infrastructure.Outbox
             }
         }
 
-        private Task SimulatedPublish(DomainEvent evt)
+        private Task SimulatedPublish(EventoDomain evt)
         {
             if (evt is TransferenciaRealizadaDomainEvent e)
             {
